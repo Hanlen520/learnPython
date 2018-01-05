@@ -2,7 +2,7 @@
 # -*- coding:utf-8 -*-
 import MySQLdb
 from sshtunnel import SSHTunnelForwarder
-from configData import *
+from testworkspace.testcase.riskEvaluation.configData import *
 import json
 import xlwt
 
@@ -18,48 +18,20 @@ def mysql_connection():
                                passwd='Kld123456')
         cursor = conn.cursor()
         # 平均每月主叫次数
-        sql1 = '''
-            SELECT
-                AVG(DIALING_COUNT_) AS '平均每月主叫次数',
-                AVG(DIALED_COUNT_) AS '平均每月被叫次数',
-                AVG(TELEPHONE_CHARGE_) AS '平均每月的话费',
-                SUM(DIALING) / SUM(DIALING_COUNT_) AS '每次主叫时长',
-                SUM(DIALED) / SUM(DIALED_COUNT_) AS '每次被叫时长',
-                SUM(TELEPHONE_CHARGE_) / SUM(DIALING_COUNT_) AS '平均每次通话的主叫金额',
-                (SUM(DIALED) / SUM(DIALED_COUNT_)) / AVG(DIALING_COUNT_) AS 'avg_beijiao',
-                AVG(TELEPHONE_CHARGE_) / (SUM(DIALING) / SUM(DIALING_COUNT_)) AS 'avg_zhujiao_money'
-            FROM
-                (
-                    SELECT
-                        *
-                    FROM
-                        kld_caifu_wealth.operator_data_statistics_
-                    WHERE
-                        USER_IDENTIFIER_ IN (
-                            SELECT
-                                userIdentifier
-                            FROM
-                                kld_caifu_wealth.users
-                            WHERE
-                                cellphone IN ('13572489850')
-                        )
-                    GROUP BY
-                        MONTH_
-                ) a
-        '''
+        sql1 =select_sql_one
 
         result = cursor.execute(sql1)
         # 打印表中的多少数据
         info1 = cursor.fetchall()
         for ii in info1:
-            print '平均每月主叫次数:',ii[0]
             avgTelephoneCharge = ii[2]
-            print '平均每月的话费:', ii[2]
+            avg_beijiao = ii[6]
+            avg_zhujiao_money = ii[7]
+            print '平均每月的话费:', avgTelephoneCharge
+            print 'avg_beijiao:', avg_beijiao
+            print 'avg_zhujiao_money:', avg_zhujiao_money
 
-        sql2='''
-          SELECT RISK_ARGS FROM kld_risk_manage.risk_evaluation 
-          WHERE USER_IDENTIFIER IN (SELECT userIdentifier FROM kld_caifu_wealth.users WHERE cellphone IN ('13572489850'));
-        '''
+        sql2=select_sql_two
         total = cursor.execute(sql2)
         info2 = cursor.fetchall()
         avg_info = info2[0][0]
@@ -69,7 +41,7 @@ def mysql_connection():
         conn.commit()
         conn.close()
         print avg_info
-        return avgTelephoneCharge,avg_info
+        return avgTelephoneCharge,avg_info,avg_beijiao,avg_zhujiao_money
 
 def get_zhima(type,zhima_score):
     datas = risk_control_attribute_data.get(type)
@@ -131,5 +103,10 @@ if __name__ == '__main__':
     sheet.write(7,0,'phoneNumMatchs')
     sheet.write(7, 1, avg_info.get('phoneNumMatchs'))
     sheet.write(7, 2, get_zhima('phoneNumMatchs', avg_info.get('phoneNumMatchs')))
+
+    sheet.write(8, 0, 'avg_beijiao')
+    sheet.write(8, 1, results[2])
+    sheet.write(9, 0, 'avg_zhujiao_money')
+    sheet.write(9, 1, results[3])
 
     wbk.save('test.xls')

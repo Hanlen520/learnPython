@@ -24,3 +24,38 @@ risk_control_attribute_data={
     'networkDuration':[{"max":19.0,"score":-5.100915},{"max":33.0,"min":19.0,"score":-3.374960},{"max":44.0,"min":33.0,"score":-1.508066},{"max":56.0,"min":44.0,"score":-0.277974},{"max":70.0,"min":56.0,"score":0.592050},{"max":88.0,"min":70.0,"score":2.102182},{"max":114.0,"min":88.0,"score":3.766286},{"min":114.0,"score":6.605952}],
     'phoneNumMatchs':[{"max":9.0,"score":-3.665810},{"max":12.0,"min":9.0,"score":-1.982148},{"max":13.0,"min":12.0,"score":14.689269},{"max":16.0,"min":13.0,"score":-0.617237},{"min":16.0,"score":-2.022586}]
 }
+
+select_sql_one = '''
+            SELECT
+                AVG(DIALING_COUNT_) AS '平均每月主叫次数',
+                AVG(DIALED_COUNT_) AS '平均每月被叫次数',
+                AVG(TELEPHONE_CHARGE_) AS '平均每月的话费',
+                SUM(DIALING) / SUM(DIALING_COUNT_) AS '每次主叫时长',
+                SUM(DIALED) / SUM(DIALED_COUNT_) AS '每次被叫时长',
+                SUM(TELEPHONE_CHARGE_) / SUM(DIALING_COUNT_) AS '平均每次通话的主叫金额',
+                SUM(DIALED) / SUM(DIALED_COUNT_) AS 'avg_beijiao',
+                AVG(TELEPHONE_CHARGE_) / ((SUM(DIALING) / SUM(DIALING_COUNT_))*AVG(DIALING_COUNT_)) AS 'avg_zhujiao_money'
+            FROM
+                (
+                    SELECT
+                        *
+                    FROM
+                        kld_caifu_wealth.operator_data_statistics_
+                    WHERE
+                        USER_IDENTIFIER_ IN (
+                            SELECT
+                                userIdentifier
+                            FROM
+                                kld_caifu_wealth.users
+                            WHERE
+                                cellphone IN ('13572489850')
+                        )
+                    GROUP BY
+                        MONTH_
+                ) a
+        '''
+
+select_sql_two = '''
+  SELECT RISK_ARGS FROM kld_risk_manage.risk_evaluation 
+  WHERE USER_IDENTIFIER IN (SELECT userIdentifier FROM kld_caifu_wealth.users WHERE cellphone IN ('13572489850'));
+'''

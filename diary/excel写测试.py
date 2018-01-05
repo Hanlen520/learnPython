@@ -45,8 +45,8 @@ for i in range(6, 80):                  # 设置单元格下列宽样式
     sheet.write(0,i,Line_data,style)
     sheet.col(i).width = 0x0d00 + i*50
 
-path = 'C:\Users\Public\Pictures\2cd16e4561a07add0671e82e744548d1.jpg'
-sheet.insert_bitmap(path, 2, 9)         #插入一个图片
+# path = 'C:\\20180105102822.bmp'
+# sheet.insert_bitmap(path, 2, 9)         #插入一个图片
 
 wbk.save('TestData2.xls')               #保存TestData2.xls文件，保存到脚本或exe文件运行的目录下
 raw_input("Enter enter key to exit...") #插入一个输入命令，方便运行exe时一闪而过不到打印信息

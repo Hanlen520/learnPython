@@ -1,0 +1,152 @@
+# basePage.py代码如下
+# _*_ coding:utf-8 _*_
+
+__author__ = '苦叶子'
+
+import sys
+reload(sys)
+sys.setdefaultencoding("utf-8")
+
+
+# pages基类
+class Page(object):
+    """
+        Page基类，所有page都应该继承该类
+    """
+    def __init__(self, driver, base_url=u"http://www.baidu.com"):
+        self.driver = driver
+        self.base_url = base_url
+        self.timeout = 30
+
+    def find_element(self, *loc):
+        return self.driver.find_element(*loc)
+
+    def input_text(self, loc, text):
+        self.find_element(*loc).send_keys(text)
+
+    def click(self, loc):
+        self.find_element(*loc).click()
+
+    def get_title(self):
+        return self.driver.title
+# searchPage.py 代码如下
+# _*_ coding:utf-8 _*_
+
+__author__ = '苦叶子'
+
+import sys
+
+from selenium.webdriver.common.by import By
+from pages.basePage import Page
+
+reload(sys)
+sys.setdefaultencoding("utf-8")
+
+
+# 百度搜索page
+class SearchPage(Page):
+    # 元素集
+
+    # 搜索输入框
+    search_input = (By.ID, u'kw')
+    # 百度一下 按钮
+    search_button = (By.ID, u'su')
+
+    def __init__(self, driver, base_url=u"http://www.baidu.com"):
+        Page.__init__(self, driver, base_url)
+
+    def gotoBaiduHomePage(self):
+        print u"打开首页: ", self.base_url
+        self.driver.get(self.base_url)
+
+    def input_search_text(self, text=u"开源优测"):
+        print u"输入搜索关键字： 开源优测 "
+        self.input_text(self.search_input, text)
+
+    def click_search_btn(self):
+        print u"点击 百度一下  按钮"
+        self.click(self.search_button)
+# testSearchPage.py代码如下
+# _*_ coding:utf-8 _*_
+
+__author__ = '苦叶子'
+
+import unittest
+import sys
+
+from selenium import webdriver
+from pages.searchPage import SearchPage
+
+reload(sys)
+sys.setdefaultencoding("utf-8")
+
+
+# 百度搜索测试
+class TestSearchPage(unittest.TestCase):
+
+    def setUp(self):
+        self.driver = webdriver.Ie()
+
+    def testSearch(self):
+        driver = self.driver
+        # 百度网址
+        url = u"http://www.baidu.com"
+        # 搜索文本
+        text = u"开源优测"
+        # 期望验证的标题
+        assert_title = u"开源优测_百度搜索"
+        print assert_title
+
+        search_Page = SearchPage(driver, url)
+
+        # 启动浏览器，访问百度首页
+        search_Page.gotoBaiduHomePage()
+
+        # 输入 搜索词
+        search_Page.input_search_text(text)
+
+        # 单击 百度一下 按钮进行搜索
+        search_Page.click_search_btn()
+
+        # 验证标题
+        self.assertEqual(search_Page.get_title(), assert_title)
+
+    def tearDown(self):
+        self.driver.quit()
+# 主入口程序代码如下
+# _*_ coding:utf-8 _*_
+
+__author__ = '苦叶子'
+
+import unittest
+import sys
+
+from common import HTMLTestRunner
+from testcase.testSearchPage import TestSearchPage
+
+
+reload(sys)
+sys.setdefaultencoding("utf-8")
+
+
+if __name__ == '__main__':
+    testunit = unittest.TestSuite()
+    testunit.addTest(TestSearchPage('testSearch'))
+
+    # 定义报告输出路径
+    htmlPath = u"page_demo_Report.html"
+    fp = file(htmlPath, "wb")
+
+    runner = HTMLTestRunner.HTMLTestRunner(stream=fp, 
+           title=u"百度测试", 
+           description=u"测试用例结果")
+
+    runner.run(testunit)
+
+    fp.close()
+
+
+
+
+
+python main.py

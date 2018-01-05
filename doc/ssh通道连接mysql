@@ -1,0 +1,33 @@
+1.pip install sshtunnel
+
+2.MySQLdb模块
+https://pypi.python.org/pypi/MySQL-python
+
+
+error：Microsoft Visual C++ 9.0
+url：http://www.microsoft.com/en-us/download/details.aspx?id=44266
+按上面提示到http://aka.ms/vcpython27下载安装后执行VCForPython27.msi。
+
+用以下方法推荐：
+MySQL_python-1.2.5-cp27-none-win_amd64.whl的下载路径：http://vdisk.weibo.com/s/aMlAmE6L3jHn_
+pip install wheel  
+pip install MySQL_python-1.2.5-cp27-none-win_amd64.whl  
+
+
+import MySQLdb
+from sshtunnel import SSHTunnelForwarder
+
+def connection4():
+	with SSHTunnelForwarder(
+			ssh_address_or_host=('118.31.70.164', 9998),
+			ssh_username='3602d0_root',
+			ssh_password='Yfb111qqq',
+			remote_bind_address=('rm-bp1qb3etnt3zb55oc.mysql.rds.aliyuncs.com', 3306)) as server:
+		conn = MySQLdb.connect(host='127.0.0.1',  # 此处必须是是127.0.0.1
+							   port=server.local_bind_port,
+							   user='kld',
+							   passwd='Kld123456',db='kld_lend_wealth')
+		cursor = conn.cursor()
+		cursor.execute("show tables")
+		print(server.local_bind_address)
+		print(len(cursor.fetchall()))

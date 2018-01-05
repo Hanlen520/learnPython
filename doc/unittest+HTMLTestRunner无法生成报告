@@ -1,0 +1,3 @@
+unittest 右键run unittests或在pycharm里用快捷键执行不会有报告
+
+原因：实际if __name__=='__main__': 后的代码并没有跑

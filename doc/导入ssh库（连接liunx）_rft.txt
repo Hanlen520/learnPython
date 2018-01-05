@@ -1,8 +1,0 @@
-pip install robotframework-SSHLibrary 
-
-
-
-导入SSHLibrary
-
-
-教程：http://blog.sina.com.cn/s/blog_71bc9d680102xa2q.html

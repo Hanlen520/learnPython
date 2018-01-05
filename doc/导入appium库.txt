@@ -1,7 +1,0 @@
-pip install robotframework-appiumlibrary
-
-µº»Î
-AppiumLibrary
-
-
-Open Application	http://127.0.0.1:4723/wd/hub	platformName=Android	platformVersion=4.2.2	deviceName=emulator-5554	app=D:\android\android-sdk-windows\tools\app-release.apk	appPackage=com.lq.kldshopping	appActivity=com.lq.kldshopping.activity.SplashActivity	

@@ -1,0 +1,20 @@
+sklearn
+
+klearn安装
+
+    sklearn目前的版本是0.17.1，可以使用pip安装。在安装时需要进行包依赖检查，具体有以下几个要求：
+
+Python（>=2.6 or >=3.3）
+NumPy(>=1.6.1)
+SciPy(>=0.9)
+    如果满足上述条件，就能使用pip进行安装了：
+
+1 pip install -U scikit-learn
+      当然，使用pip安装会比较麻烦，推荐使用Anaconda科学计算环境，里面已经内置了NumPy、SciPy、sklearn等模块，直接可用。或者使用conda进行包管理。conda安装与pip类似：
+
+1  conda install scikit-learn
+       安装完sklearn以后，可以检查以下版本：
+
+1  >>> import sklearn
+2  >>> sklearn.__version__
+3  '0.17.1'

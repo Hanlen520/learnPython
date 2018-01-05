@@ -1,0 +1,19 @@
+IntelliBot
+
+1.打开pycharm>点击File>点击setting>打开Plugins>点击Browse reponsitories：
+打开后，输入IntelliBot并安装，安装后需要重启才能生效.\
+
+
+2.点击File>点击setting>点击editor>点击file types,(robot Feature)点击右侧的+号配置一下文件类型即可
+
+*.txt
+
+3.点击File>点击setting>点击Tools>点击External tools，然后添加执行单个用例的配置
+
+配置如下
+Robot Run SingleTestCase
+
+
+C:\ProgramData\Anaconda2\Scripts\pybot.bat
+-d results $FileName$
+$FileDir$

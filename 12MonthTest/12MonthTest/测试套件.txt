@@ -1,0 +1,64 @@
+*** Settings ***
+Library           Selenium2Library
+Library           RequestsLibrary
+Library           requests
+Library           json
+Library           Collections
+Resource          业务关键字.txt
+
+*** Variables ***
+${cellphone}      13572489850
+${psw}            123456
+
+*** Test Cases ***
+baidu_find
+    Open Browser    http://47.96.186.178:8080/admin_web/system/main.json?programId=7    chrome
+    sleep    2
+    Close Browser
+
+post_登录
+    ${heads}    Create Dictionary    Content-Type=application/x-www-form-urlencoded
+    Create Session    httpbin    http://120.55.42.27
+    ${params}    Create Dictionary    name=${cellphone}    password=${psw}    appVersion=1.3.1115    appType=1
+    ${reslut}=    Post Request    httpbin    /caifu/user/signIn/    data=&{params}    headers=&{heads}
+    log    ${reslut.json()}
+    ${dict}    Set Variable    ${reslut.json()}
+    ${msg}    Get From Dictionary    ${dict}    message
+    ${resultCode}    Get From Dictionary    ${dict}    resultCode
+    ${properties}    Get From Dictionary    ${dict}    properties
+    Should Be Equal As Strings    ${resultCode}    0000
+    ${list}    Get From List    ${properties}    0
+    ${token}    Get From Dictionary    ${list}    token
+
+get_app消息通知
+    ${token}=    GetToken
+    ${heads}    Create Dictionary    Content-Type=application/json    Host=120.55.42.27
+    ${params}    Create Dictionary    token=${token}    number=1
+    Create Session    httpbin    http://120.55.42.27
+    ${reslut}=    Get Request    httpbin    /caifu/appMessage/getAmsglist?token=${token}&number=1    ${heads}
+    log    ${reslut}
+    ${dict}    Set Variable    ${reslut.json()}
+    ${resultCode}    Get From Dictionary    ${dict}    resultCode
+    Should Be Equal As Strings    ${resultCode}    0000
+
+get_获取用户信息
+    ${token}=    GetToken
+    ${heads}    Create Dictionary    Content-Type=application/json    Host=120.55.42.27
+    ${params}    Create Dictionary    token=${token}    number=1
+    Create Session    httpbin    http://120.55.42.27
+    ${reslut}=    Get Request    httpbin    /caifu/userInfo/Info?token=${token}    ${heads}
+    log    ${reslut}
+    ${dict}    Set Variable    ${reslut.json()}
+    ${resultCode}    Get From Dictionary    ${dict}    resultCode
+    Should Be Equal As Strings    ${resultCode}    0000
+
+get_订单列表
+    ${token}=    GetToken
+    ${heads}    Create Dictionary    Content-Type=application/json    Host=120.55.42.27
+    ${params}    Create Dictionary    token=${token}    number=1
+    Create Session    httpbin    http://120.55.42.27/borrow/
+    ${reslut}=    Get Request    httpbin    /ordersInfo/getOrderList?token=${token}    ${heads}
+    log    ${reslut}
+    ${dict}    Set Variable    ${reslut.json()}
+    ${resultCode}    Get From Dictionary    ${dict}    resultCode
+    Should Be Equal As Strings    ${resultCode}    0000

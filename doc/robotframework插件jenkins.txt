@@ -1,0 +1,15 @@
+pybot.bat F:\robot\12MonthTest\12MonthTest\appTest.txt
+
+robotframework插件地址：（推荐1.3.2）
+http://mirrors.jenkins-ci.org/plugins/robot/
+
+
+
+怎么制定robotframework的日志路径？
+
+解决办法：在run的arguments输入这个:
+
+-l F:\robot\Robot_Report\log -r F:\robot\Robot_Report\report -o F:\robot\Robot_Report\output 
+
+pybot.bat -l F:\robot\Robot_Report\log -r F:\robot\Robot_Report\report -o F:\robot\Robot_Report\output F:\robot\12MonthTest\12MonthTest
+

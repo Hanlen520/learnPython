@@ -1,0 +1,8 @@
+*** Settings ***
+Library           AppiumLibrary
+
+*** Test Cases ***
+example1
+    Open Application    http://127.0.0.1:4723/wd/hub    platformName=Android    platformVersion=4.2.2    deviceName=emulator-5554    appPackage=com.lq.kldshopping    appActivity=com.lq.kldshopping.activity.SplashActivity
+    sleep    3
+    Close All Applications

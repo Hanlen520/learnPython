@@ -1,0 +1,878 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generated="20171228 14:06:09.326" generator="Robot 3.0.2 (Python 2.7.13 on win32)">
+<suite source="F:\PycharmProjects\12MonthTest\12MonthTest\测试套件.txt" id="s1" name="测试套件">
+<test id="s1-t1" name="baidu_find">
+<kw name="Open Browser" library="Selenium2Library">
+<doc>Opens a new browser instance to the given ``url``.</doc>
+<arguments>
+<arg>http://47.96.186.178:8080/admin_web/system/main.json?programId=7</arg>
+<arg>chrome</arg>
+</arguments>
+<msg timestamp="20171228 14:06:09.820" level="INFO">Opening browser 'chrome' to base url 'http://47.96.186.178:8080/admin_web/system/main.json?programId=7'.</msg>
+<status status="PASS" endtime="20171228 14:06:17.384" starttime="20171228 14:06:09.820"></status>
+</kw>
+<kw name="Sleep" library="BuiltIn">
+<doc>Pauses the test executed for the given time.</doc>
+<arguments>
+<arg>2</arg>
+</arguments>
+<msg timestamp="20171228 14:06:19.384" level="INFO">Slept 2 seconds</msg>
+<status status="PASS" endtime="20171228 14:06:19.384" starttime="20171228 14:06:17.384"></status>
+</kw>
+<kw name="Close Browser" library="Selenium2Library">
+<doc>Closes the current browser.</doc>
+<status status="PASS" endtime="20171228 14:06:22.415" starttime="20171228 14:06:19.384"></status>
+</kw>
+<status status="PASS" endtime="20171228 14:06:22.415" critical="yes" starttime="20171228 14:06:09.820"></status>
+</test>
+<test id="s1-t2" name="post_登录">
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>Content-Type=application/x-www-form-urlencoded</arg>
+</arguments>
+<assign>
+<var>${heads}</var>
+</assign>
+<msg timestamp="20171228 14:06:22.417" level="INFO">${heads} = {u'Content-Type': u'application/x-www-form-urlencoded'}</msg>
+<status status="PASS" endtime="20171228 14:06:22.417" starttime="20171228 14:06:22.416"></status>
+</kw>
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>httpbin</arg>
+<arg>http://120.55.42.27</arg>
+</arguments>
+<msg timestamp="20171228 14:06:22.417" level="INFO">Creating Session using : alias=httpbin, url=http://120.55.42.27, headers={},                     cookies=None, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" endtime="20171228 14:06:22.417" starttime="20171228 14:06:22.417"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>name=${cellphone}</arg>
+<arg>password=${psw}</arg>
+<arg>appVersion=1.3.1115</arg>
+<arg>appType=1</arg>
+</arguments>
+<assign>
+<var>${params}</var>
+</assign>
+<msg timestamp="20171228 14:06:22.418" level="INFO">${params} = {u'name': u'13572489850', u'password': u'123456', u'appVersion': u'1.3.1115', u'appType': u'1'}</msg>
+<status status="PASS" endtime="20171228 14:06:22.418" starttime="20171228 14:06:22.417"></status>
+</kw>
+<kw name="Post Request" library="RequestsLibrary">
+<doc>Send a POST request on the session object found using the</doc>
+<arguments>
+<arg>httpbin</arg>
+<arg>/caifu/user/signIn/</arg>
+<arg>data=&amp;{params}</arg>
+<arg>headers=&amp;{heads}</arg>
+</arguments>
+<assign>
+<var>${reslut}</var>
+</assign>
+<msg timestamp="20171228 14:06:22.454" level="INFO">Post Request using : alias=httpbin, uri=/caifu/user/signIn/, data=password=123456&amp;name=13572489850&amp;appType=1&amp;appVersion=1.3.1115, headers={u'Content-Type': u'application/x-www-form-urlencoded'}, files=None, allow_redirects=True </msg>
+<msg timestamp="20171228 14:06:22.454" level="INFO">${reslut} = &lt;Response [200]&gt;</msg>
+<status status="PASS" endtime="20171228 14:06:22.454" starttime="20171228 14:06:22.418"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${reslut.json()}</arg>
+</arguments>
+<msg timestamp="20171228 14:06:22.454" level="INFO">{u'resultCode': u'0000', u'message': u'\u64cd\u4f5c\u6210\u529f', u'properties': [{u'lock': False, u'remainCount': 5, u'token': u'5846be453c5dedef665e93efa36ce89c', u'userExist': True}]}</msg>
+<status status="PASS" endtime="20171228 14:06:22.455" starttime="20171228 14:06:22.454"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${reslut.json()}</arg>
+</arguments>
+<assign>
+<var>${dict}</var>
+</assign>
+<msg timestamp="20171228 14:06:22.455" level="INFO">${dict} = {u'resultCode': u'0000', u'message': u'\u64cd\u4f5c\u6210\u529f', u'properties': [{u'lock': False, u'remainCount': 5, u'token': u'5846be453c5dedef665e93efa36ce89c', u'userExist': True}]}</msg>
+<status status="PASS" endtime="20171228 14:06:22.455" starttime="20171228 14:06:22.455"></status>
+</kw>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${dict}</arg>
+<arg>message</arg>
+</arguments>
+<assign>
+<var>${msg}</var>
+</assign>
+<msg timestamp="20171228 14:06:22.455" level="INFO">${msg} = 操作成功</msg>
+<status status="PASS" endtime="20171228 14:06:22.455" starttime="20171228 14:06:22.455"></status>
+</kw>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${dict}</arg>
+<arg>resultCode</arg>
+</arguments>
+<assign>
+<var>${resultCode}</var>
+</assign>
+<msg timestamp="20171228 14:06:22.456" level="INFO">${resultCode} = 0000</msg>
+<status status="PASS" endtime="20171228 14:06:22.456" starttime="20171228 14:06:22.455"></status>
+</kw>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${dict}</arg>
+<arg>properties</arg>
+</arguments>
+<assign>
+<var>${properties}</var>
+</assign>
+<msg timestamp="20171228 14:06:22.456" level="INFO">${properties} = [{u'lock': False, u'remainCount': 5, u'token': u'5846be453c5dedef665e93efa36ce89c', u'userExist': True}]</msg>
+<status status="PASS" endtime="20171228 14:06:22.456" starttime="20171228 14:06:22.456"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${resultCode}</arg>
+<arg>0000</arg>
+</arguments>
+<status status="PASS" endtime="20171228 14:06:22.456" starttime="20171228 14:06:22.456"></status>
+</kw>
+<kw name="Get From List" library="Collections">
+<doc>Returns the value specified with an ``index`` from ``list``.</doc>
+<arguments>
+<arg>${properties}</arg>
+<arg>0</arg>
+</arguments>
+<assign>
+<var>${list}</var>
+</assign>
+<msg timestamp="20171228 14:06:22.457" level="INFO">${list} = {u'lock': False, u'remainCount': 5, u'token': u'5846be453c5dedef665e93efa36ce89c', u'userExist': True}</msg>
+<status status="PASS" endtime="20171228 14:06:22.457" starttime="20171228 14:06:22.456"></status>
+</kw>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${list}</arg>
+<arg>token</arg>
+</arguments>
+<assign>
+<var>${token}</var>
+</assign>
+<msg timestamp="20171228 14:06:22.457" level="INFO">${token} = 5846be453c5dedef665e93efa36ce89c</msg>
+<status status="PASS" endtime="20171228 14:06:22.457" starttime="20171228 14:06:22.457"></status>
+</kw>
+<status status="PASS" endtime="20171228 14:06:22.457" critical="yes" starttime="20171228 14:06:22.416"></status>
+</test>
+<test id="s1-t3" name="get_app消息通知">
+<kw name="GetToken" library="业务关键字">
+<assign>
+<var>${token}</var>
+</assign>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>Content-Type=application/x-www-form-urlencoded</arg>
+</arguments>
+<assign>
+<var>${heads}</var>
+</assign>
+<msg timestamp="20171228 14:06:22.458" level="INFO">${heads} = {u'Content-Type': u'application/x-www-form-urlencoded'}</msg>
+<status status="PASS" endtime="20171228 14:06:22.459" starttime="20171228 14:06:22.458"></status>
+</kw>
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>httpbin</arg>
+<arg>http://120.55.42.27</arg>
+</arguments>
+<msg timestamp="20171228 14:06:22.459" level="INFO">Creating Session using : alias=httpbin, url=http://120.55.42.27, headers={},                     cookies=None, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" endtime="20171228 14:06:22.459" starttime="20171228 14:06:22.459"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>name=${cellphone}</arg>
+<arg>password=${psw}</arg>
+<arg>appVersion=1.3.1115</arg>
+<arg>appType=1</arg>
+</arguments>
+<assign>
+<var>${params}</var>
+</assign>
+<msg timestamp="20171228 14:06:22.460" level="INFO">${params} = {u'name': u'13572489850', u'password': u'123456', u'appVersion': u'1.3.1115', u'appType': u'1'}</msg>
+<status status="PASS" endtime="20171228 14:06:22.460" starttime="20171228 14:06:22.459"></status>
+</kw>
+<kw name="Post Request" library="RequestsLibrary">
+<doc>Send a POST request on the session object found using the</doc>
+<arguments>
+<arg>httpbin</arg>
+<arg>/caifu/user/signIn/</arg>
+<arg>data=&amp;{params}</arg>
+<arg>headers=&amp;{heads}</arg>
+</arguments>
+<assign>
+<var>${reslut}</var>
+</assign>
+<msg timestamp="20171228 14:06:22.486" level="INFO">Post Request using : alias=httpbin, uri=/caifu/user/signIn/, data=password=123456&amp;name=13572489850&amp;appType=1&amp;appVersion=1.3.1115, headers={u'Content-Type': u'application/x-www-form-urlencoded'}, files=None, allow_redirects=True </msg>
+<msg timestamp="20171228 14:06:22.487" level="INFO">${reslut} = &lt;Response [200]&gt;</msg>
+<status status="PASS" endtime="20171228 14:06:22.487" starttime="20171228 14:06:22.460"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${reslut.json()}</arg>
+</arguments>
+<msg timestamp="20171228 14:06:22.487" level="INFO">{u'resultCode': u'0000', u'message': u'\u64cd\u4f5c\u6210\u529f', u'properties': [{u'lock': False, u'remainCount': 5, u'token': u'b64a50f4df39ca61d1c62bad43c1ee43', u'userExist': True}]}</msg>
+<status status="PASS" endtime="20171228 14:06:22.487" starttime="20171228 14:06:22.487"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${reslut.json()}</arg>
+</arguments>
+<assign>
+<var>${dict}</var>
+</assign>
+<msg timestamp="20171228 14:06:22.488" level="INFO">${dict} = {u'resultCode': u'0000', u'message': u'\u64cd\u4f5c\u6210\u529f', u'properties': [{u'lock': False, u'remainCount': 5, u'token': u'b64a50f4df39ca61d1c62bad43c1ee43', u'userExist': True}]}</msg>
+<status status="PASS" endtime="20171228 14:06:22.488" starttime="20171228 14:06:22.488"></status>
+</kw>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${dict}</arg>
+<arg>message</arg>
+</arguments>
+<assign>
+<var>${msg}</var>
+</assign>
+<msg timestamp="20171228 14:06:22.489" level="INFO">${msg} = 操作成功</msg>
+<status status="PASS" endtime="20171228 14:06:22.489" starttime="20171228 14:06:22.489"></status>
+</kw>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${dict}</arg>
+<arg>resultCode</arg>
+</arguments>
+<assign>
+<var>${resultCode}</var>
+</assign>
+<msg timestamp="20171228 14:06:22.489" level="INFO">${resultCode} = 0000</msg>
+<status status="PASS" endtime="20171228 14:06:22.489" starttime="20171228 14:06:22.489"></status>
+</kw>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${dict}</arg>
+<arg>properties</arg>
+</arguments>
+<assign>
+<var>${properties}</var>
+</assign>
+<msg timestamp="20171228 14:06:22.490" level="INFO">${properties} = [{u'lock': False, u'remainCount': 5, u'token': u'b64a50f4df39ca61d1c62bad43c1ee43', u'userExist': True}]</msg>
+<status status="PASS" endtime="20171228 14:06:22.490" starttime="20171228 14:06:22.490"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${resultCode}</arg>
+<arg>0000</arg>
+</arguments>
+<status status="PASS" endtime="20171228 14:06:22.490" starttime="20171228 14:06:22.490"></status>
+</kw>
+<kw name="Get From List" library="Collections">
+<doc>Returns the value specified with an ``index`` from ``list``.</doc>
+<arguments>
+<arg>${properties}</arg>
+<arg>0</arg>
+</arguments>
+<assign>
+<var>${list}</var>
+</assign>
+<msg timestamp="20171228 14:06:22.491" level="INFO">${list} = {u'lock': False, u'remainCount': 5, u'token': u'b64a50f4df39ca61d1c62bad43c1ee43', u'userExist': True}</msg>
+<status status="PASS" endtime="20171228 14:06:22.491" starttime="20171228 14:06:22.491"></status>
+</kw>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${list}</arg>
+<arg>token</arg>
+</arguments>
+<assign>
+<var>${token}</var>
+</assign>
+<msg timestamp="20171228 14:06:22.491" level="INFO">${token} = b64a50f4df39ca61d1c62bad43c1ee43</msg>
+<status status="PASS" endtime="20171228 14:06:22.491" starttime="20171228 14:06:22.491"></status>
+</kw>
+<msg timestamp="20171228 14:06:22.492" level="INFO">${token} = b64a50f4df39ca61d1c62bad43c1ee43</msg>
+<status status="PASS" endtime="20171228 14:06:22.492" starttime="20171228 14:06:22.458"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>Content-Type=application/json</arg>
+<arg>Host=120.55.42.27</arg>
+</arguments>
+<assign>
+<var>${heads}</var>
+</assign>
+<msg timestamp="20171228 14:06:22.492" level="INFO">${heads} = {u'Content-Type': u'application/json', u'Host': u'120.55.42.27'}</msg>
+<status status="PASS" endtime="20171228 14:06:22.492" starttime="20171228 14:06:22.492"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>token=${token}</arg>
+<arg>number=1</arg>
+</arguments>
+<assign>
+<var>${params}</var>
+</assign>
+<msg timestamp="20171228 14:06:22.492" level="INFO">${params} = {u'token': u'b64a50f4df39ca61d1c62bad43c1ee43', u'number': u'1'}</msg>
+<status status="PASS" endtime="20171228 14:06:22.492" starttime="20171228 14:06:22.492"></status>
+</kw>
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>httpbin</arg>
+<arg>http://120.55.42.27</arg>
+</arguments>
+<msg timestamp="20171228 14:06:22.493" level="INFO">Creating Session using : alias=httpbin, url=http://120.55.42.27, headers={},                     cookies=None, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" endtime="20171228 14:06:22.493" starttime="20171228 14:06:22.492"></status>
+</kw>
+<kw name="Get Request" library="RequestsLibrary">
+<doc>Send a GET request on the session object found using the</doc>
+<arguments>
+<arg>httpbin</arg>
+<arg>/caifu/appMessage/getAmsglist?token=${token}&amp;number=1</arg>
+<arg>${heads}</arg>
+</arguments>
+<assign>
+<var>${reslut}</var>
+</assign>
+<msg timestamp="20171228 14:06:22.528" level="INFO">Get Request using : alias=httpbin, uri=/caifu/appMessage/getAmsglist?token=b64a50f4df39ca61d1c62bad43c1ee43&amp;number=1, headers={u'Content-Type': u'application/json', u'Host': u'120.55.42.27'} json=None</msg>
+<msg timestamp="20171228 14:06:22.528" level="INFO">${reslut} = &lt;Response [200]&gt;</msg>
+<status status="PASS" endtime="20171228 14:06:22.528" starttime="20171228 14:06:22.493"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${reslut}</arg>
+</arguments>
+<msg timestamp="20171228 14:06:22.529" level="INFO">&lt;Response [200]&gt;</msg>
+<status status="PASS" endtime="20171228 14:06:22.529" starttime="20171228 14:06:22.529"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${reslut.json()}</arg>
+</arguments>
+<assign>
+<var>${dict}</var>
+</assign>
+<msg timestamp="20171228 14:06:22.529" level="INFO">${dict} = {u'pageSize': 20, u'pageCount': 1, u'listData': [{u'gmt_create': u'2017-11-22 13:39:09', u'message': u'\u8fd8\u6b3e\u62b5\u6263\u91d1220', u'type': 2}, {u'gmt_create': u'2017-11-21 15:16:11', u'messag...</msg>
+<status status="PASS" endtime="20171228 14:06:22.529" starttime="20171228 14:06:22.529"></status>
+</kw>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${dict}</arg>
+<arg>resultCode</arg>
+</arguments>
+<assign>
+<var>${resultCode}</var>
+</assign>
+<msg timestamp="20171228 14:06:22.530" level="INFO">${resultCode} = 0000</msg>
+<status status="PASS" endtime="20171228 14:06:22.530" starttime="20171228 14:06:22.529"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${resultCode}</arg>
+<arg>0000</arg>
+</arguments>
+<status status="PASS" endtime="20171228 14:06:22.530" starttime="20171228 14:06:22.530"></status>
+</kw>
+<status status="PASS" endtime="20171228 14:06:22.530" critical="yes" starttime="20171228 14:06:22.457"></status>
+</test>
+<test id="s1-t4" name="get_获取用户信息">
+<kw name="GetToken" library="业务关键字">
+<assign>
+<var>${token}</var>
+</assign>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>Content-Type=application/x-www-form-urlencoded</arg>
+</arguments>
+<assign>
+<var>${heads}</var>
+</assign>
+<msg timestamp="20171228 14:06:22.531" level="INFO">${heads} = {u'Content-Type': u'application/x-www-form-urlencoded'}</msg>
+<status status="PASS" endtime="20171228 14:06:22.531" starttime="20171228 14:06:22.531"></status>
+</kw>
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>httpbin</arg>
+<arg>http://120.55.42.27</arg>
+</arguments>
+<msg timestamp="20171228 14:06:22.532" level="INFO">Creating Session using : alias=httpbin, url=http://120.55.42.27, headers={},                     cookies=None, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" endtime="20171228 14:06:22.532" starttime="20171228 14:06:22.532"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>name=${cellphone}</arg>
+<arg>password=${psw}</arg>
+<arg>appVersion=1.3.1115</arg>
+<arg>appType=1</arg>
+</arguments>
+<assign>
+<var>${params}</var>
+</assign>
+<msg timestamp="20171228 14:06:22.532" level="INFO">${params} = {u'name': u'13572489850', u'password': u'123456', u'appVersion': u'1.3.1115', u'appType': u'1'}</msg>
+<status status="PASS" endtime="20171228 14:06:22.532" starttime="20171228 14:06:22.532"></status>
+</kw>
+<kw name="Post Request" library="RequestsLibrary">
+<doc>Send a POST request on the session object found using the</doc>
+<arguments>
+<arg>httpbin</arg>
+<arg>/caifu/user/signIn/</arg>
+<arg>data=&amp;{params}</arg>
+<arg>headers=&amp;{heads}</arg>
+</arguments>
+<assign>
+<var>${reslut}</var>
+</assign>
+<msg timestamp="20171228 14:06:22.558" level="INFO">Post Request using : alias=httpbin, uri=/caifu/user/signIn/, data=password=123456&amp;name=13572489850&amp;appType=1&amp;appVersion=1.3.1115, headers={u'Content-Type': u'application/x-www-form-urlencoded'}, files=None, allow_redirects=True </msg>
+<msg timestamp="20171228 14:06:22.558" level="INFO">${reslut} = &lt;Response [200]&gt;</msg>
+<status status="PASS" endtime="20171228 14:06:22.558" starttime="20171228 14:06:22.533"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${reslut.json()}</arg>
+</arguments>
+<msg timestamp="20171228 14:06:22.559" level="INFO">{u'resultCode': u'0000', u'message': u'\u64cd\u4f5c\u6210\u529f', u'properties': [{u'lock': False, u'remainCount': 5, u'token': u'ffa4f4b2da19f50b6735b7fe3e5e22fc', u'userExist': True}]}</msg>
+<status status="PASS" endtime="20171228 14:06:22.559" starttime="20171228 14:06:22.558"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${reslut.json()}</arg>
+</arguments>
+<assign>
+<var>${dict}</var>
+</assign>
+<msg timestamp="20171228 14:06:22.559" level="INFO">${dict} = {u'resultCode': u'0000', u'message': u'\u64cd\u4f5c\u6210\u529f', u'properties': [{u'lock': False, u'remainCount': 5, u'token': u'ffa4f4b2da19f50b6735b7fe3e5e22fc', u'userExist': True}]}</msg>
+<status status="PASS" endtime="20171228 14:06:22.559" starttime="20171228 14:06:22.559"></status>
+</kw>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${dict}</arg>
+<arg>message</arg>
+</arguments>
+<assign>
+<var>${msg}</var>
+</assign>
+<msg timestamp="20171228 14:06:22.560" level="INFO">${msg} = 操作成功</msg>
+<status status="PASS" endtime="20171228 14:06:22.560" starttime="20171228 14:06:22.559"></status>
+</kw>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${dict}</arg>
+<arg>resultCode</arg>
+</arguments>
+<assign>
+<var>${resultCode}</var>
+</assign>
+<msg timestamp="20171228 14:06:22.560" level="INFO">${resultCode} = 0000</msg>
+<status status="PASS" endtime="20171228 14:06:22.560" starttime="20171228 14:06:22.560"></status>
+</kw>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${dict}</arg>
+<arg>properties</arg>
+</arguments>
+<assign>
+<var>${properties}</var>
+</assign>
+<msg timestamp="20171228 14:06:22.560" level="INFO">${properties} = [{u'lock': False, u'remainCount': 5, u'token': u'ffa4f4b2da19f50b6735b7fe3e5e22fc', u'userExist': True}]</msg>
+<status status="PASS" endtime="20171228 14:06:22.560" starttime="20171228 14:06:22.560"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${resultCode}</arg>
+<arg>0000</arg>
+</arguments>
+<status status="PASS" endtime="20171228 14:06:22.561" starttime="20171228 14:06:22.560"></status>
+</kw>
+<kw name="Get From List" library="Collections">
+<doc>Returns the value specified with an ``index`` from ``list``.</doc>
+<arguments>
+<arg>${properties}</arg>
+<arg>0</arg>
+</arguments>
+<assign>
+<var>${list}</var>
+</assign>
+<msg timestamp="20171228 14:06:22.561" level="INFO">${list} = {u'lock': False, u'remainCount': 5, u'token': u'ffa4f4b2da19f50b6735b7fe3e5e22fc', u'userExist': True}</msg>
+<status status="PASS" endtime="20171228 14:06:22.561" starttime="20171228 14:06:22.561"></status>
+</kw>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${list}</arg>
+<arg>token</arg>
+</arguments>
+<assign>
+<var>${token}</var>
+</assign>
+<msg timestamp="20171228 14:06:22.561" level="INFO">${token} = ffa4f4b2da19f50b6735b7fe3e5e22fc</msg>
+<status status="PASS" endtime="20171228 14:06:22.561" starttime="20171228 14:06:22.561"></status>
+</kw>
+<msg timestamp="20171228 14:06:22.561" level="INFO">${token} = ffa4f4b2da19f50b6735b7fe3e5e22fc</msg>
+<status status="PASS" endtime="20171228 14:06:22.561" starttime="20171228 14:06:22.531"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>Content-Type=application/json</arg>
+<arg>Host=120.55.42.27</arg>
+</arguments>
+<assign>
+<var>${heads}</var>
+</assign>
+<msg timestamp="20171228 14:06:22.562" level="INFO">${heads} = {u'Content-Type': u'application/json', u'Host': u'120.55.42.27'}</msg>
+<status status="PASS" endtime="20171228 14:06:22.562" starttime="20171228 14:06:22.562"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>token=${token}</arg>
+<arg>number=1</arg>
+</arguments>
+<assign>
+<var>${params}</var>
+</assign>
+<msg timestamp="20171228 14:06:22.562" level="INFO">${params} = {u'token': u'ffa4f4b2da19f50b6735b7fe3e5e22fc', u'number': u'1'}</msg>
+<status status="PASS" endtime="20171228 14:06:22.562" starttime="20171228 14:06:22.562"></status>
+</kw>
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>httpbin</arg>
+<arg>http://120.55.42.27</arg>
+</arguments>
+<msg timestamp="20171228 14:06:22.563" level="INFO">Creating Session using : alias=httpbin, url=http://120.55.42.27, headers={},                     cookies=None, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" endtime="20171228 14:06:22.563" starttime="20171228 14:06:22.562"></status>
+</kw>
+<kw name="Get Request" library="RequestsLibrary">
+<doc>Send a GET request on the session object found using the</doc>
+<arguments>
+<arg>httpbin</arg>
+<arg>/caifu/userInfo/Info?token=${token}</arg>
+<arg>${heads}</arg>
+</arguments>
+<assign>
+<var>${reslut}</var>
+</assign>
+<msg timestamp="20171228 14:06:22.585" level="INFO">Get Request using : alias=httpbin, uri=/caifu/userInfo/Info?token=ffa4f4b2da19f50b6735b7fe3e5e22fc, headers={u'Content-Type': u'application/json', u'Host': u'120.55.42.27'} json=None</msg>
+<msg timestamp="20171228 14:06:22.586" level="INFO">${reslut} = &lt;Response [200]&gt;</msg>
+<status status="PASS" endtime="20171228 14:06:22.586" starttime="20171228 14:06:22.563"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${reslut}</arg>
+</arguments>
+<msg timestamp="20171228 14:06:22.586" level="INFO">&lt;Response [200]&gt;</msg>
+<status status="PASS" endtime="20171228 14:06:22.586" starttime="20171228 14:06:22.586"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${reslut.json()}</arg>
+</arguments>
+<assign>
+<var>${dict}</var>
+</assign>
+<msg timestamp="20171228 14:06:22.586" level="INFO">${dict} = {u'resultCode': u'0000', u'message': u'\u64cd\u4f5c\u6210\u529f', u'properties': [{u'cellphone': u'13572489850', u'loginName': u'13572489850', u'verified': True, u'realName': u'\u674e\u6210\u8273', u'...</msg>
+<status status="PASS" endtime="20171228 14:06:22.587" starttime="20171228 14:06:22.586"></status>
+</kw>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${dict}</arg>
+<arg>resultCode</arg>
+</arguments>
+<assign>
+<var>${resultCode}</var>
+</assign>
+<msg timestamp="20171228 14:06:22.587" level="INFO">${resultCode} = 0000</msg>
+<status status="PASS" endtime="20171228 14:06:22.587" starttime="20171228 14:06:22.587"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${resultCode}</arg>
+<arg>0000</arg>
+</arguments>
+<status status="PASS" endtime="20171228 14:06:22.587" starttime="20171228 14:06:22.587"></status>
+</kw>
+<status status="PASS" endtime="20171228 14:06:22.587" critical="yes" starttime="20171228 14:06:22.530"></status>
+</test>
+<test id="s1-t5" name="get_订单列表">
+<kw name="GetToken" library="业务关键字">
+<assign>
+<var>${token}</var>
+</assign>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>Content-Type=application/x-www-form-urlencoded</arg>
+</arguments>
+<assign>
+<var>${heads}</var>
+</assign>
+<msg timestamp="20171228 14:06:22.589" level="INFO">${heads} = {u'Content-Type': u'application/x-www-form-urlencoded'}</msg>
+<status status="PASS" endtime="20171228 14:06:22.589" starttime="20171228 14:06:22.588"></status>
+</kw>
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>httpbin</arg>
+<arg>http://120.55.42.27</arg>
+</arguments>
+<msg timestamp="20171228 14:06:22.589" level="INFO">Creating Session using : alias=httpbin, url=http://120.55.42.27, headers={},                     cookies=None, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" endtime="20171228 14:06:22.589" starttime="20171228 14:06:22.589"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>name=${cellphone}</arg>
+<arg>password=${psw}</arg>
+<arg>appVersion=1.3.1115</arg>
+<arg>appType=1</arg>
+</arguments>
+<assign>
+<var>${params}</var>
+</assign>
+<msg timestamp="20171228 14:06:22.590" level="INFO">${params} = {u'name': u'13572489850', u'password': u'123456', u'appVersion': u'1.3.1115', u'appType': u'1'}</msg>
+<status status="PASS" endtime="20171228 14:06:22.590" starttime="20171228 14:06:22.589"></status>
+</kw>
+<kw name="Post Request" library="RequestsLibrary">
+<doc>Send a POST request on the session object found using the</doc>
+<arguments>
+<arg>httpbin</arg>
+<arg>/caifu/user/signIn/</arg>
+<arg>data=&amp;{params}</arg>
+<arg>headers=&amp;{heads}</arg>
+</arguments>
+<assign>
+<var>${reslut}</var>
+</assign>
+<msg timestamp="20171228 14:06:22.616" level="INFO">Post Request using : alias=httpbin, uri=/caifu/user/signIn/, data=password=123456&amp;name=13572489850&amp;appType=1&amp;appVersion=1.3.1115, headers={u'Content-Type': u'application/x-www-form-urlencoded'}, files=None, allow_redirects=True </msg>
+<msg timestamp="20171228 14:06:22.616" level="INFO">${reslut} = &lt;Response [200]&gt;</msg>
+<status status="PASS" endtime="20171228 14:06:22.616" starttime="20171228 14:06:22.590"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${reslut.json()}</arg>
+</arguments>
+<msg timestamp="20171228 14:06:22.616" level="INFO">{u'resultCode': u'0000', u'message': u'\u64cd\u4f5c\u6210\u529f', u'properties': [{u'lock': False, u'remainCount': 5, u'token': u'76efc9982aaa897a114eecf4aeecca45', u'userExist': True}]}</msg>
+<status status="PASS" endtime="20171228 14:06:22.616" starttime="20171228 14:06:22.616"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${reslut.json()}</arg>
+</arguments>
+<assign>
+<var>${dict}</var>
+</assign>
+<msg timestamp="20171228 14:06:22.617" level="INFO">${dict} = {u'resultCode': u'0000', u'message': u'\u64cd\u4f5c\u6210\u529f', u'properties': [{u'lock': False, u'remainCount': 5, u'token': u'76efc9982aaa897a114eecf4aeecca45', u'userExist': True}]}</msg>
+<status status="PASS" endtime="20171228 14:06:22.617" starttime="20171228 14:06:22.617"></status>
+</kw>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${dict}</arg>
+<arg>message</arg>
+</arguments>
+<assign>
+<var>${msg}</var>
+</assign>
+<msg timestamp="20171228 14:06:22.617" level="INFO">${msg} = 操作成功</msg>
+<status status="PASS" endtime="20171228 14:06:22.617" starttime="20171228 14:06:22.617"></status>
+</kw>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${dict}</arg>
+<arg>resultCode</arg>
+</arguments>
+<assign>
+<var>${resultCode}</var>
+</assign>
+<msg timestamp="20171228 14:06:22.620" level="INFO">${resultCode} = 0000</msg>
+<status status="PASS" endtime="20171228 14:06:22.620" starttime="20171228 14:06:22.618"></status>
+</kw>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${dict}</arg>
+<arg>properties</arg>
+</arguments>
+<assign>
+<var>${properties}</var>
+</assign>
+<msg timestamp="20171228 14:06:22.620" level="INFO">${properties} = [{u'lock': False, u'remainCount': 5, u'token': u'76efc9982aaa897a114eecf4aeecca45', u'userExist': True}]</msg>
+<status status="PASS" endtime="20171228 14:06:22.620" starttime="20171228 14:06:22.620"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${resultCode}</arg>
+<arg>0000</arg>
+</arguments>
+<status status="PASS" endtime="20171228 14:06:22.621" starttime="20171228 14:06:22.620"></status>
+</kw>
+<kw name="Get From List" library="Collections">
+<doc>Returns the value specified with an ``index`` from ``list``.</doc>
+<arguments>
+<arg>${properties}</arg>
+<arg>0</arg>
+</arguments>
+<assign>
+<var>${list}</var>
+</assign>
+<msg timestamp="20171228 14:06:22.621" level="INFO">${list} = {u'lock': False, u'remainCount': 5, u'token': u'76efc9982aaa897a114eecf4aeecca45', u'userExist': True}</msg>
+<status status="PASS" endtime="20171228 14:06:22.621" starttime="20171228 14:06:22.621"></status>
+</kw>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${list}</arg>
+<arg>token</arg>
+</arguments>
+<assign>
+<var>${token}</var>
+</assign>
+<msg timestamp="20171228 14:06:22.621" level="INFO">${token} = 76efc9982aaa897a114eecf4aeecca45</msg>
+<status status="PASS" endtime="20171228 14:06:22.621" starttime="20171228 14:06:22.621"></status>
+</kw>
+<msg timestamp="20171228 14:06:22.622" level="INFO">${token} = 76efc9982aaa897a114eecf4aeecca45</msg>
+<status status="PASS" endtime="20171228 14:06:22.622" starttime="20171228 14:06:22.588"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>Content-Type=application/json</arg>
+<arg>Host=120.55.42.27</arg>
+</arguments>
+<assign>
+<var>${heads}</var>
+</assign>
+<msg timestamp="20171228 14:06:22.622" level="INFO">${heads} = {u'Content-Type': u'application/json', u'Host': u'120.55.42.27'}</msg>
+<status status="PASS" endtime="20171228 14:06:22.622" starttime="20171228 14:06:22.622"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>token=${token}</arg>
+<arg>number=1</arg>
+</arguments>
+<assign>
+<var>${params}</var>
+</assign>
+<msg timestamp="20171228 14:06:22.622" level="INFO">${params} = {u'token': u'76efc9982aaa897a114eecf4aeecca45', u'number': u'1'}</msg>
+<status status="PASS" endtime="20171228 14:06:22.622" starttime="20171228 14:06:22.622"></status>
+</kw>
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>httpbin</arg>
+<arg>http://120.55.42.27/borrow/</arg>
+</arguments>
+<msg timestamp="20171228 14:06:22.623" level="INFO">Creating Session using : alias=httpbin, url=http://120.55.42.27/borrow/, headers={},                     cookies=None, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" endtime="20171228 14:06:22.623" starttime="20171228 14:06:22.623"></status>
+</kw>
+<kw name="Get Request" library="RequestsLibrary">
+<doc>Send a GET request on the session object found using the</doc>
+<arguments>
+<arg>httpbin</arg>
+<arg>/ordersInfo/getOrderList?token=${token}</arg>
+<arg>${heads}</arg>
+</arguments>
+<assign>
+<var>${reslut}</var>
+</assign>
+<msg timestamp="20171228 14:06:22.642" level="INFO">Get Request using : alias=httpbin, uri=/ordersInfo/getOrderList?token=76efc9982aaa897a114eecf4aeecca45, headers={u'Content-Type': u'application/json', u'Host': u'120.55.42.27'} json=None</msg>
+<msg timestamp="20171228 14:06:22.642" level="INFO">${reslut} = &lt;Response [200]&gt;</msg>
+<status status="PASS" endtime="20171228 14:06:22.642" starttime="20171228 14:06:22.623"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${reslut}</arg>
+</arguments>
+<msg timestamp="20171228 14:06:22.643" level="INFO">&lt;Response [200]&gt;</msg>
+<status status="PASS" endtime="20171228 14:06:22.643" starttime="20171228 14:06:22.642"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${reslut.json()}</arg>
+</arguments>
+<assign>
+<var>${dict}</var>
+</assign>
+<msg timestamp="20171228 14:06:22.643" level="INFO">${dict} = {u'pageSize': 10, u'pageCount': 1, u'listData': [{u'orderTime': u'2017-12-18 20:05:12', u'fee': 0.0, u'refundAmount': 0, u'realRefundDate': u'2017-12-18 20:13:31', u'debitBankName': u'\u4ea4\u901a\u94...</msg>
+<status status="PASS" endtime="20171228 14:06:22.643" starttime="20171228 14:06:22.643"></status>
+</kw>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${dict}</arg>
+<arg>resultCode</arg>
+</arguments>
+<assign>
+<var>${resultCode}</var>
+</assign>
+<msg timestamp="20171228 14:06:22.644" level="INFO">${resultCode} = 0000</msg>
+<status status="PASS" endtime="20171228 14:06:22.644" starttime="20171228 14:06:22.643"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${resultCode}</arg>
+<arg>0000</arg>
+</arguments>
+<status status="PASS" endtime="20171228 14:06:22.644" starttime="20171228 14:06:22.644"></status>
+</kw>
+<status status="PASS" endtime="20171228 14:06:22.644" critical="yes" starttime="20171228 14:06:22.588"></status>
+</test>
+<status status="PASS" endtime="20171228 14:06:22.644" starttime="20171228 14:06:09.329"></status>
+</suite>
+<statistics>
+<total>
+<stat fail="0" pass="5">Critical Tests</stat>
+<stat fail="0" pass="5">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat fail="0" id="s1" name="测试套件" pass="5">测试套件</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>

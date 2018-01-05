@@ -1,0 +1,17 @@
+anaconda下载
+https://mirrors.tuna.tsinghua.edu.cn/anaconda/archive/
+
+1.Anaconda2-4.3.1-Windows-x86.exe
+2.python --version,确认python安装的版本
+3.wxPython
+4.pip install robotframework/robotframework-ride/robotframework-selenium2library
+5.pip	install	requests/urllib/RequestsLibrary
+
+查询rft版本pybot --version
+
+教程：
+使用robotframework做接口测试之一——准备工作 
+http://robotframework.net/?/article/90
+
+https://www.cnblogs.com/fnng/p/3871712.html  
+ 

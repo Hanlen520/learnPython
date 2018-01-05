@@ -1,0 +1,10 @@
+adb install XX
+
+error devices offline
+
+解决办法：
+重启adb服务
+
+adb kill-server
+
+adb start-server

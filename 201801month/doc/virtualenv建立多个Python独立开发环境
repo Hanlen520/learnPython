@@ -1,0 +1,73 @@
+用virtualenv建立多个Python独立开发环境
+安装与使用virtualenv
+安装 virtualenv 很简单：
+
+1
+pip install virtualenv
+virtualenv安装完毕后，可以通过运行下面的命令来为你的项目创建独立的python环境：
+
+view sourceprint?
+1
+mkdir nowamagic_venv
+2
+virtualenv --distribute nowamagic_venv
+OK，成功。上面发生了什么？你创建了文件夹 nowamagic_venv 来存储你的新的独立Python环境。 这个文件夹位于 /root 下面。
+
+我们再来看看输出：
+
+1
+New python executable in nowamagic_venv/bin/python2.7
+2
+Also creating executable in nowamagic_venv/bin/python
+3
+Installing Setuptools......done.
+4
+Installing Pip...........done.
+--distribute 选项使virtualenv使用新的基于发行版的包管理系统而不是 setuptools 获得的包。 你现在需要知道的就是 --distribute 选项会自动在新的虚拟环境中安装 pip ，这样就不需要手动安装了。 当你成为一个更有经验的Python开发者，你就会明白其中细节。
+
+
+activate：这个virtualenv的激活文件
+pip：这个virtualenv的独立pip
+python：python解释器的一个副本
+lib/python2.7：所有的新包会被存在这
+试验一下
+通过下面的命令激活这个virtualenv：
+
+1
+[root@nowamagic ~]# cd nowamagic_venv
+2
+[root@nowamagic nowamagic_venv]# source bin/activate
+3
+(nowamagic_venv)[root@nowamagic nowamagic_venv]#
+运行下面的命令可以更好地理解两者的差异，如果已经进入virtualenv请先离开。
+
+1
+deactivate  #离开
+首先让我们看看如果调用python/pip命令它会调用那一个。
+
+1
+[root@nowamagic ~]# which python
+2
+/usr/bin/python
+1
+[root@nowamagic ~]# which pip
+2
+/usr/local/bin/pip
+再来一次！这次打开virtualenv，然后看看有什么不同。我的机子上显示如下：
+
+1
+[root@nowamagic ~]# which python
+2
+/root/nowamagic_venv/bin/python
+1
+[root@nowamagic ~]# which pip
+2
+/root/nowamagic_venv/bin/pip
+virtualenv拷贝了Python可执行文件的副本，并创建一些有用的脚本和安装了项目需要的软件包，你可以在项目的整个生命周期中安装/升级/删除这些包。 它也修改了一些搜索路径，例如PYTHONPATH，以确保：
+
+当安装包时，它们被安装在当前活动的virtualenv里，而不是系统范围内的Python路径。
+当import代码时，virtualenv将优先采取本环境中安装的包，而不是系统Python目录中安装的包。
+还有一点比较重要，在默认情况下，所有安装在系统范围内的包对于virtualenv是可见的。 这意味着如果你将simplejson安装在您的系统Python目录中，它会自动提供给所有的virtualenvs使用。 这种行为可以被更改，在创建virtualenv时增加 --no-site-packages 选项的virtualenv就不会读取系统包，如下：
+
+1
+virtualenv nowamagic_venv --no-site-packages

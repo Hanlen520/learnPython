@@ -1,0 +1,6 @@
+1.django-admin startproject HelloWorld
+
+2.
+python F:\learnPython\mysite\manage.py runserver 0.0.0.0:8000
+
+3.http://localhost:8000/

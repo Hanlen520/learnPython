@@ -1,0 +1,6 @@
+使用andconda安装django：
+1.打开Anaconda Prompt
+2.conda install Django
+3.检测：
+import django
+django.get_version()

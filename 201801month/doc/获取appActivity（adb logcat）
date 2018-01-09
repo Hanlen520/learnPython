@@ -1,0 +1,5 @@
+没有apk的情况下，可以使用。
+adb logcat>D:/log.txt
+注意一下：
+OppoPackageManager
+ActivityManager

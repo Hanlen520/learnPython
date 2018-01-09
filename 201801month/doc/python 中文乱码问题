@@ -1,0 +1,10 @@
+py脚本开头加上：
+
+1 # -*- coding:utf-8 -*-
+
+cnstr就是你的中文字符串，做一下判断：如果是unicode，直接转码，如果不是，先解码再转码（解码前要知道你的字符串是什么编码）。
+
+if isinstance(cnstr, unicode):
+    print tt.encode('utf-8')
+else:
+    print cnstr.decode('cp936').encode('utf-8')

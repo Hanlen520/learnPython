@@ -7,8 +7,8 @@ from email.mime.text import MIMEText
 from email.header import Header
 import common.HTMLTestRunnerCN as HTMLTestRunnerCN
 
-from testcase.test_getAmsglist import case_getAmsglist
-from testcase.test_isFirstBorrow import case_isFirstBorrow
+from testcase.QueryUserInfo import QueryUserInfo
+from testcase.UploadUserInfo import UploadUserInfo
 
 def send_mail(file_new):
     f = open(file_new,'rb')
@@ -42,15 +42,21 @@ def send_mail_new(file_new):
 
 if __name__ == '__main__':
     testsuit = unittest.TestSuite()
-    testsuit.addTest(case_getAmsglist('test_getAmsglist'))
-    testsuit.addTest(case_isFirstBorrow('test_isFirstBorrow'))
+    # 用户信息查询
+    testsuit.addTest(QueryUserInfo('test_getAmsglist'))
+    testsuit.addTest(QueryUserInfo('test_isFirstBorrow'))
+    testsuit.addTest(QueryUserInfo('test_revealQuery'))
+    testsuit.addTest(QueryUserInfo('test_revealEnumQuery'))
 
-    now = time.strftime("%Y-%m-%M-%H_%M_%S", time.localtime(time.time()))
-    filePath = os.getcwd() + '\\report\\'+ now + 'new_report.html'
+    testsuit.addTest(UploadUserInfo('test_putUserAddressBook'))
+
+
+    now = time.strftime("%Y-%m-%d-%H_%M_%S", time.localtime(time.time()))
+    filePath = os.getcwd() + '\\report\\'+ now + '_report.html'
 
     fp = file(filePath, 'wb')
-    runner = HTMLTestRunnerCN.HTMLTestRunner(stream=fp, title="test", description="XXXXXXXXXXXXXXXXXXXXXXXXX")
+    runner = HTMLTestRunnerCN.HTMLTestRunner(stream=fp, title="接口Test", description="接口Test")
     runner.run(testsuit)
     fp.close()
 
-    send_mail(filePath)
+    # send_mail(filePath)

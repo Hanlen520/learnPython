@@ -1,0 +1,22 @@
+application/x-www-form-urlencoded
+最常见post提交数据的方式，以form表单形式提交数据。
+application/json
+以json串提交数据。
+multipart/form-data
+一般使用来上传文件。
+-----------------------------------------------------------
+
+1.以form形式发送post请求
+Reqeusts支持以form表单形式发送post请求，只需要将请求的参数构造成一个字典，然后传给requests.post()的data参数即可
+d = {'key1': 'value1', 'key2': 'value2'}
+r = requests.post(url, data=d)
+
+2.以json形式发送post请求
+url = 'http://httpbin.org/post'
+s = json.dumps({'key1': 'value1', 'key2': 'value2'})
+r = requests.post(url, data=s)
+
+3.以multipart形式发送post请求
+url = 'http://httpbin.org/post'
+files = {'file': open('report.txt', 'rb')}
+r = requests.post(url, files=files)

@@ -19,12 +19,12 @@ def getcellphone(cellphone):
 
 def test():
     md5_pwd = hashlib.md5()
-    md5_pwd.update('1234563337c37cae894e469446392ff7457279')
+    # 158 9544b351297a40b18cb5252eb7cdedd6 00876019
+    md5_pwd.update('13572489850')
     print md5_pwd.hexdigest()
-
-    print hashlib.sha1('1234562ba9cc2679881b09dc6d052823ba37d5').hexdigest()
+    # print hashlib.sha1('1234562ba9cc2679881b09dc6d052823ba37d5').hexdigest()
 
 
 if __name__ == '__main__':
-    getcellphone('13572489850')
+    # getcellphone('13572489850')
     test()

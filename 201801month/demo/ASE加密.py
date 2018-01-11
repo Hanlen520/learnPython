@@ -22,7 +22,7 @@ def decrypt_aes(cryptedStr):
 
 if __name__ == '__main__':
     generator = AES.new('kaledaimall98765', AES.MODE_CBC, 'kaledaimall98765')
-    crypt = generator.encrypt(pad_it('123456'))
+    crypt = generator.encrypt(pad_it('456456'))
     cryptedStr = base64.b64encode(crypt)
     print cryptedStr
 

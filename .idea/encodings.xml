@@ -1,30 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
-    <file url="file://$PROJECT_DIR$/doc/Pillow库" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/doc/SSH远程登陆_paramiko" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/doc/SSH远程登陆_paramiko.txt" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/doc/adb install：error devices offline解决办法" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/doc/adb install：error devices offline解决办法.txt" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/doc/pytest" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/doc/python多线程技术来启动多个浏览器" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/doc/robotframework插件jenkins" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/doc/robotframework环境" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/doc/sklearn安装（机器学习）" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/doc/sklearn安装（机器学习）.txt" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/doc/ssh通道连接mysql" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/doc/unittest+HTMLTestRunner无法生成报告" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/doc/url" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/doc/例1" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/doc/初建脚本（百度查询）" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/doc/字符串转换成字典" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/doc/安装IntelliBot" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/doc/导入DatabaseLibrary库" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/doc/导入appium库" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/doc/导入http测试库" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/doc/导入ssh库（连接liunx）_rft" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/doc/操作excel" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/doc/获取appPackage" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/Documents/Pillow库" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/Documents/SSH远程登陆_paramiko" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/Documents/adb install：error devices offline解决办法" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/Documents/pytest" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/Documents/python多线程技术来启动多个浏览器" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/Documents/robotframework插件jenkins" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/Documents/robotframework环境" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/Documents/sklearn安装（机器学习）" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/Documents/ssh通道连接mysql" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/Documents/unittest+HTMLTestRunner无法生成报告" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/Documents/url" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/Documents/例1" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/Documents/初建脚本（百度查询）" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/Documents/字符串转换成字典" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/Documents/安装IntelliBot" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/Documents/导入DatabaseLibrary库" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/Documents/导入appium库" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/Documents/导入http测试库" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/Documents/导入ssh库（连接liunx）_rft" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/Documents/操作excel" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/Documents/获取appPackage" charset="GBK" />
     <file url="PROJECT" charset="UTF-8" />
   </component>
 </project>

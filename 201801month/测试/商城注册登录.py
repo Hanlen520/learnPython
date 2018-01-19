@@ -4,7 +4,8 @@ import requests
 from tool import *
 from SqlQuery import *
 
-URL_SHOP = "http://10.1.11.51:8080"
+# URL_SHOP = "http://10.1.11.51:8080"
+URL_SHOP = "http://lqmallapi.51kaledai.com:8080"
 cellphone = '15800876020'
 psw = '456456'
 
@@ -67,6 +68,7 @@ def signIn():
     }
     s = json.dumps(data)
     response = requests.post(url=url, data=s)
+    print response
     token = ""
     if response.status_code == 200:
         print response.content
@@ -94,13 +96,13 @@ if __name__ == '__main__':
     # 注册
     # signUp(identifier)
 
-    isregister()
+    # isregister()
 
     # 查询卡乐贷数据库中用户是否存在
     # mysql_query_users(cellphone)
 
     # 登录获取token
-    # token = signIn()
+    token = signIn()
 
     # 用户退出
     # signOut(token)

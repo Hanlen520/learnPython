@@ -7,8 +7,8 @@ def getToken():
     token = ""
     url = URL + '/caifu/user/signIn'
     data = {
-        'name': '13572489850',
-        'password': '123456'
+        'name':USERINFO['cellphone'],
+        'password': USERINFO['password']
     }
     response = requests.post(url=url, data=data)
     if response.status_code == 200:

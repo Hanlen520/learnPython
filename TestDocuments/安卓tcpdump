@@ -1,0 +1,72 @@
+安装tcpdump到/system/bin/下
+
+adb push tcpdump /sdcard/
+adb push E:\app\tcpdump /sdcard/
+adb Shell
+su
+cat /sdcard/tcpdump > /system/bin/tcpdump
+
+chmod 6755 /system/bin/tcpdump
+
+netcfg查询网卡
+查看当前的设备名称 busybox ifconfig
+
+使用tcpdump抓包
+tcpdump -i wlan0 -s 0 -w /sdcard/3.pcap
+tcpdump -i any -p -s 0 -w /sdcard/3.pcap
+tcpdump -p -vv -s 0 -w /sdcard/3.pcap
+
+tcpdump -i wlan0 -p -vv -s 0 -w /sdcard/3.pcap
+tcpdump -i lo -s 0 -w /sdcard/3.pcap
+tcpdump -i p2p0 -s 0 -w /sdcard/3.pcap
+tcpdump -i lo -s 0 -w /sdcard/3.pcap
+tcpdump -i wlan0 -p -vv -s 0 -w /sdcard/3.pcap
+
+-p 将网络接口设置成非混杂模式
+-vv 输出详细的报文信息
+-s 设置捕获数据包的长度，从每个分组中读取最开始的snaplen个字节，而不是默认的
+68个字节，这里使用0，表示获取全部数据包。
+-w 将监听到的数据包写入指定文件，不分析和打印数据包。
+
+1.pcap文件被下载到了终端上的当前目录下
+adb pull /sdcard/3.pcap
+adb pull /sdcard/3.pcap E:\pcap
+
+
+adb shell  /system/bin/tcpdump -p -vv -s 0 -w /sdcard/3.pcap
+
+
+rm -r /sdcard/3.pcap
+rm -r /system/bin/tcpdump
+tcpdump采用命令行方式，它的命令格式为：
+tcpdump [ -adeflnNOpqStvx ] [ -c 数量 ] [ -F 文件名 ][ -i 网络接口 ] [ -r 文件名]
+        [ -s snaplen ][ -T 类型 ] [ -w 文件名 ] [表达式 ]
+
+
+安卓安装busybox
+另外打开一个shell，输入busybox pkill -SIGINT tcpdump 来关闭tcpdump
+参数解释：
+busybox：root过的机子里都应该有这个东西吧。它包括了Linux系统中常用的命令集，这样就可以在android系统中使用各种linux命令了
+pkill：linux下常见的命令，用于向指定的进程发送指定的信号
+-SIGINT：指定了发送信号的类型为SIGINT，即等同于按下Ctrl+C时向运行的进程发送的中断信号
+your_process_name：就是你的进程名。pkill命令与kill命令不同之处就在于pkill指可以通过传入进程名来定位进程，而kill只能通过传入进程的PID来指定要kill的进程。
+
+当然，如果你知道你的进程PID或者使用管道工具，用kill命令也是可以像Ctrl+C一样发送SIGINT信号中断进程的。
+
+
+tcpdump host 10.1.55.43
+
+tcpdump -i wlan0 -p -vv -s 0 -w /sdcard/3.pcap
+tcpdump -i wlan0 -s 0 -w /sdcard/3.pcap
+busybox pkill -SIGINT tcpdump
+adb pull /sdcard/3.pcap E:\pcap
+rm -r /sdcard/3.pcap
+
+tcpdump -i wlan0 host 47.96.171.4 -s 0 -w /sdcard/3.pcap
+tcpdump -i wlan0 -p -vv -s 0 -w
+
+tcpdump -i wlan0 -Xnlps0 -w /sdcard/3.pcap
+
+
+tcpdump -i eth0 -p -vv -s 0 -w /sdcard/3.pcap
+tcpdump -i wlan0 -p -vv -s 0 -w /sdcard/3.pcap

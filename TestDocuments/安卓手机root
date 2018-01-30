@@ -1,0 +1,34 @@
+Android手机root：
+手机ROOT通常是针对Android系统对于手机而言，它使得用户可以获取Android操作系统的超级用户权限。root通常用于帮助用户越过
+手机制造商的限制，使得用户可以卸载手机制造商、运营商、第三方渠道商预装在手机中某些应用，
+以及运行一些需要超级用户权限的应用程序。Android系统的root与Apple iOS系统的越狱类似。
+
+获取root权限
+
+1.adb devices   #检查手机是否已连接
+
+2.adb shell  进入手机修改  /data/local/  目录的权限为所有用户可写;
+adb shell   #登入手机
+su          #切换Root用户
+chmod 777 /data/local/    #修改目录权限，修改后Ctrl+C退出adb shell
+
+3.tcpdump程序copy至android手机；
+adb push E:\app\tcpdump /data/local/  #tcpdump文件存放在E盘根目录，/data/local/为手机目标路径
+
+4.进入手机修改tcpdump权限，增加可执行权限;
+adb shell   #登入手机
+su          #切换Root用户
+chmod 777 /data/local/tcpdump    #增加可执行权限
+
+
+1).连接手机，切换Root用户，执行抓包命令
+adb shell   #登入手机
+su          #切换Root用户
+/data/local/tcpdump -p -vv -s 0 -w /sdcard/ThinkDrive.pcap   #执行抓包命令，结果保存到SD卡ThinkDrive.pcap文件中
+
+2).APP操作，生成请求数据
+如果操作完成，不需要再抓包，则按Ctrl+C中断抓包退出
+
+3). 导出抓包结果至电脑
+
+adb pull /sdcard/ThinkDrive.pcap E:/  #前为手机中文件及存放路径，后为电脑E盘根目录

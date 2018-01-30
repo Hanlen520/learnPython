@@ -13,6 +13,7 @@ pad_it = lambda s: s+(16 - len(s)%16)*chr(16 - len(s) % 16)
 pad = lambda s: s+(16 - len(s)%16)*PADDING
 # pkcs7padding,iso10126,ansix923
 
+# 使用PyCrypto库进行ase加密
 def decrypt_aes(cryptedStr):
     generator = AES.new('kaledaimall98765', AES.MODE_CBC, 'kaledaimall98765')
     cryptedStr = base64.b64decode(cryptedStr)

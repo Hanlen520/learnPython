@@ -1,0 +1,23 @@
+在命令行中输入：adb devices
+
+C:\Users\Administrator>adb devices
+List of devices attached
+* daemon not running. starting it now on port 5037 *
+error: could not install *smartsocket* listener: cannot bind to 127.0.0.1:5037:
+通常每个套接字地址(协议/网络地址/端口)只允许使用一次。 (10048)
+could not read ok from ADB Server
+* failed to start daemon *
+error: cannot connect to daemon
+
+解决：
+查看5037 进程号
+netstat -ano | findstr "5037"
+
+找到占用端口的应用程序
+tasklist | findstr "5976"
+
+杀掉进程，若出现下面无法终止的问题，只能去任务管理器找到这个进程手动杀死
+taskkill /f /pid 5976
+
+
+总结：基本上都是360手机助手会占用这个端口，关了就好

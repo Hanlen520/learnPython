@@ -5,6 +5,7 @@ import unittest
 import common.HTMLTestRunnerCN as HTMLTestRunnerCN
 from testcase_shop.QueryLoanAmount import QueryLoanAmount
 from testcase_shop.OrderInfo import OrderInfo
+from testcase_shop.UserInfo import UserInfo
 
 if __name__ == '__main__':
     testsuit = unittest.TestSuite()
@@ -13,7 +14,8 @@ if __name__ == '__main__':
     # testsuit.addTest(QueryLoanAmount('test_queryLoanAmountv1'))
 
     #商城下订单
-    testsuit.addTest(OrderInfo('test_order'))
+    # testsuit.addTest(UserInfo('test_getglobalInfo'))
+    testsuit.addTest(UserInfo('test_lend'))
 
     unittest.TextTestRunner(verbosity=2).run(testsuit)
 

@@ -6,7 +6,7 @@ from config import *
 from testworkspace.common.tool import *
 
 def getShopToken():
-    url = URL_SHOP + '/lqmall/user/signIn'
+    url = URL_SHOP + '//lqmall/user/signIn'
     data = {
         'name': USERINFO['cellphone'],
         'password': encrypt(USERINFO['password'])
@@ -16,7 +16,7 @@ def getShopToken():
     token = ""
     if response.status_code == 200:
         token = response.json()['properties']['token']
-    print u"当前token为：",token
+    # print u"当前token为：",token
     return token
 
 # if __name__ == '__main__':

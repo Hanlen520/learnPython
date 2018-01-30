@@ -16,6 +16,7 @@ class OrderInfo(unittest.TestCase):
 
     # 商城下订单
     def test_order(self):
+        print u"test_order-当前token为：", self.token
         # 根据抓包得，此接口的数据传输格式为Gzip压缩
         url = URL_SHOP + '/lqmall/merch/order'
         data = {
@@ -32,6 +33,7 @@ class OrderInfo(unittest.TestCase):
 
     # 调用三方支付前置接口
     def test_payEncryption(self):
+        print u"test_payEncryption-当前token为：", self.token
         # 根据抓包得，此接口的数据传输格式为Gzip压缩
         url = URL_SHOP + '/lqmall/merch/payEncryption'
         data = {
@@ -45,6 +47,25 @@ class OrderInfo(unittest.TestCase):
         if response.status_code == 200:
             print response.content
 
+    def test_lend(self):
+        print u"test_lend-当前token为：", self.token
+        # 根据抓包得，此接口的数据传输格式为Gzip压缩
+        url ='http://10.1.52.153:8080/proxyTable/borrow/orders/lend'
+        data = {
+            'token': self.token,
+            "amount": "0.01",
+            "cycleId": 1,
+            "debitSuffixBankCardNo": 8351,
+            "debitBankName": u'中国交通银行',
+            "creditCardNo": '6226230030317935',
+            "creditBankName": u'中国民生银行',
+            "paymentPassword": 456456
+        }
+        s = json.dumps(data)
+        response = requests.post(url=url, data=s)
+        if response.status_code == 200:
+            print response.content
+
     # 退出清理工作
     def tearDown(self):
         pass
@@ -52,6 +73,6 @@ class OrderInfo(unittest.TestCase):
 if __name__ == '__main__':
     testsuit = unittest.TestSuite()
 
-    testsuit.addTest(OrderInfo('test_payEncryption'))
+    testsuit.addTest(OrderInfo('test_lend'))
 
     unittest.TextTestRunner(verbosity=2).run(testsuit)

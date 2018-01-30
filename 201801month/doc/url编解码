@@ -1,0 +1,28 @@
+python中的urlencode与urldecode
+
+urllib库里面有个urlencode函数，可以把key-value这样的键值对转换成我们想要的格式，返回的是a=1&b=2这样的字符串，比如：
+>>> from urllib import urlencode
+>>> data = {
+...     'a': 'test',
+...     'name': '魔兽'
+... }
+>>> print urlencode(data)
+a=test&amp;name=%C4%A7%CA%DE
+
+如果只想对一个字符串进行urlencode转换，怎么办？urllib提供另外一个函数：quote()
+
+>>> from urllib import quote
+>>> quote('魔兽')
+'%C4%A7%CA%DE'
+
+当urlencode之后的字符串传递过来之后，接受完毕就要解码了——urldecode。urllib提供了unquote()这个函数，可没有urldecode()！
+
+>>> from urllib import unquote
+>>> unquote('%C4%A7%CA%DE')
+'\xc4\xa7\xca\xde'
+>>> print unquote('%C4%A7%CA%DE')
+魔兽
+三、讨论
+在做urldecode的时候，看unquote()这个函数的输出，是对应中文在gbk下的编码，在对比一下quote()的结果不难发现，所谓的urlencode就是把字符串转车gbk编码，然后把\x替换成%。如果你的终端是utf8编码的，那么要把结果再转成utf8输出，否则就乱码。
+
+可以根据实际情况，自定义或者重写urlencode()、urldecode()等函数。

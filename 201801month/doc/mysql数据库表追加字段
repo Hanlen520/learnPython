@@ -1,0 +1,6 @@
+
+追加字段：
+alter table newexample add font varchar(20);
+
+删除字段
+ALTER TABLE mytable DROP 字段 名;

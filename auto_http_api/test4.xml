@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+    <title>接口测试</title>
+    <host>47.96.171.4</host>
+    <port>8090</port>
+    <No>[1001,1002]</No>
+    <header>{"Accept":"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8","User-Agent":"Mozilla/5.0 (Windows NT 6.1; rv:29.0) Gecko/20100101 Firefox/29.0"}</header>
+    <InterfaceList>
+        <params>
+            <name type="str">platform</name>
+            <value>2</value>
+            <must>1</must>
+        </params>
+        <params>
+            <name type="str">appVersion</name>
+            <value>1.0.0</value>
+            <must>1</must>
+        </params>
+        <isList>0</isList>
+        <id>1001</id>
+        <name>查询轮播图</name>
+        <method>POST</method>
+        <url>/lqmall/slideShowList</url>
+        <hope>{}</hope>
+        <login>url</login>
+        <isList>0</isList>
+    </InterfaceList>
+</root>

@@ -1,0 +1,7 @@
+
+安装：pip install locustio
+如果你打算运行Locust 分布在多个进程/机器，我们建议你也安装pyzmq.
+
+    通过pip命令安装。 /> pip install pyzmq
+
+安装成功，CMD敲入命令验证。 /> locust --help

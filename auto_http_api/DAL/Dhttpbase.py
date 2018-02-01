@@ -8,7 +8,7 @@ import json
 class ConfigHttp():
     def __init__(self, mhttpbase):
         self.mhttpbase = mhttpbase
-    def get(self, url, params):
+    def get(self, url, params=None):
         result = {}
         url = "http://" + self.mhttpbase.host + ":" + self.mhttpbase.port + "/" + url + params
         print(url)

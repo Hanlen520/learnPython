@@ -31,4 +31,6 @@ def getXML(xml, mhttp):
             i_app["param"].append(param)
         interfaceName.append(i_app)
     # print(interfaceName)
+    print 'interfaceName:',interfaceName
+    print 'mhttp:', mhttp
     return interfaceName, mhttp

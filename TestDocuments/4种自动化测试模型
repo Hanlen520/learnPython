@@ -1,0 +1,174 @@
+4种自动化测试模型:
+线性模型
+线性脚本中每个脚本都相互独立，且不会产生其他依赖与调用，其实就是简单模拟用户某个操作流程产生的脚本。
+
+实例：
+
+[python] view plain copy
+from selenium import webdriver
+from selenium.webdriver.common.action_chains import ActionChains
+
+driver = webdriver.Firefox()
+driver.get(r"https://yunpan.360.cn/")
+driver.maximize_window ()
+driver.find_element_by_xpath("//*[@name='account']").clear()
+driver.find_element_by_xpath("//*[@name='account']").send_keys("1xxx36@qq.com")
+driver.find_element_by_name("password").clear()
+driver.find_element_by_name("password").send_keys("yxxx5336..")
+driver.find_element_by_xpath("//*[@id='login']/div/div[2]/form/p[4]/label/input").click()
+driver.find_element_by_xpath("//*[@id='login']/div/div[2]/form/p[5]/input").click()
+
+#定位到需要右击的元素
+right_click = driver.find_element_by_link_text("jemeter")
+
+#对定位到的元素执行鼠标邮件操作
+ActionChains(driver).context_click(right_click).perform()
+driver.quit()
+模块化驱动测试
+线性模型虽然每个用例都可以拿出来独立运行，但是用例之间重复代码很多，开发、维护成本高。其实把重复的操作代码封装为独立的公共模块，当用例执行时需要用到这部分，直接调用即可，这就是模块驱动的方式。比如登录系统、退出登录、截图函数等等。
+实例：dsp系统的登录、退出
+
+Login_dsp.py
+
+[python] view plain copy
+from selenium import webdriver
+from time import *
+from selenium.common.exceptions import NoSuchElementException
+
+class Login():
+#   实例化时调用该__init__方法，浏览器驱动driver、url
+    def __init__(self):
+        self.driver = webdriver.Firefox()
+        self.url = r"http://managerx.biddingx.com/#login"
+        self.timeout = 5
+#   登录dsp系统的代码
+    def login_on(self):
+        self.driver.get(self.url)
+        self.driver.implicitly_wait(5)
+        self.driver.find_element_by_xpath("//*[@id='LoginFormEmail']").clear
+        self.driver.find_element_by_xpath("//*[@id='LoginFormEmail']").send_keys("xxx.com")
+        self.driver.find_element_by_xpath("//*[@id='LoginFormPass']").clear()
+        self.driver.find_element_by_xpath("//*[@id='LoginFormPass']").send_keys("xxx0")
+        self.driver.find_element_by_xpath(".//*[@id='SCENES_LOGIN']/div/div/div[2]/div[4]/button").click()
+        sleep(2)
+#   退出dsp系统的代码
+    def login_off(self):
+        try:
+            el = self.driver.find_element_by_xpath(".//*[@id='SCENES_MAIN']/div/div[1]/div[2]/div[5]/div/div/i")
+            el.click()
+            el2 = self.driver.find_element_by_link_text("退出登录")
+        except NoSuchElementException as e:
+            print(e)
+        else:
+            el2.click()
+        finally:
+            self.driver.quit()
+
+if __name__ == "__main__":
+    l = Login()
+    l.login_on()
+    l.login_off()
+调用该模块登录、退出：
+
+[python] view plain copy
+from DSP_login_class import Login
+
+l = Login()
+#调用登录模块登录dsp
+l.login_on()
+#一系列其他的操作用例
+#调用登录模块退出登录
+l.login_off()
+注意在实际中封装需要给个driver入参，在引用该木块调用再给个实际参数，因为其他webdriver的操作方法也需要driver驱动。如数据驱动测试的实例那样。
+数据驱动测试
+模块驱动的模型虽然解决了脚本的重复问题，但是需要测试不同数据的用例时，模块驱动的方式就不很适合了。
+接口自动化中测试用例和脚本的分离、测试不同的账号执行情况、操作的流程相同但是数据不同等等这些用数据驱动吧。
+数据驱动就是数据的改变从而驱动自动化测试的执行，最终引起测试结果的改变。
+装载数据的方式可以是列表、字典或是外部文件（txt、csv、xml、excel），目的就是实现数据和脚本的分离。
+实例：
+
+public.py
+
+[python] view plain copy
+class Login():
+    # login_on
+    #增加username、password入参，将的到的具体参数作为登录时的数据。
+    def login_on(self,driver,username,password):
+        driver.find_element_by_name("email").clear()
+        driver.find_element_by_name("email").send_keys(username)
+        driver.find_element_by_name("password").clear
+        driver.find_element_by_name("password").send_keys(password)
+        driver.find_element_by_css_selector("#dologin").click()
+
+    # login_off
+    def login_off(self,driver):
+        driver.find_element_by_link_text("退出").click()
+        driver.quit()
+通过脚本直接实现多个用户登录测试：
+
+多用户登录1.py
+
+[python] view plain copy
+from selenium import webdriver
+from time import sleep
+from public import Login
+ll = Login()
+
+class Logintest():
+#    在__init__中初始化浏览器驱动、打开url
+    def __init__(self):
+        self.driver = webdriver.Firefox()
+        self.driver.get(r"http://www.126.com")
+        self.driver.switch_to_frame("x-URS-iframe")
+        self.driver.implicitly_wait(5)
+#    用户liyxxxou登录126邮箱
+    def test_user1_login(self):
+        username ="liyue_you"
+        password ="yue1048355336.."
+#       调用public中的login_on()方法
+        ll.login_on(self.driver,username,password)
+        sleep(10)
+        self.driver.get_screenshot_as_file(r"D:\testscreen\lixxxou.jpg")
+        self.driver.quit()
+#   用户texxxest1登录126邮箱
+    def test_user2_login(self):
+        password = "yue1048355336.."
+        username = "test0_test1"
+#       调用public中的login_on()方法
+        ll.login_on(self.driver,username,password)
+        sleep(5)
+        self.driver.get_screenshot_as_file(r"D:\testscreen\texxxest1.jpg")
+        self.driver.quit()
+if __name__ =="__main__":
+    l =Logintest()
+    l.test_user1_login()
+    l.test_user2_login()
+通过读取外部文件实现多用户登录测试：
+
+
+多用户登录2.py
+
+[python] view plain copy
+from time import sleep
+from selenium import webdriver
+from public import Login
+l = Login()
+
+f = open(r"C:\Users\Administrator\Desktop\test.txt","r")
+file = f.readlines()
+for i in file:
+    username = i.split(",")[0]
+    password = i.split(",")[1]
+    driver = webdriver.Firefox()
+    driver.get(r"http://www.126.com")
+    driver.implicitly_wait(10)
+    l.login_on(driver,username,password)
+    sleep(10)
+    #查看写信等操作。。。。
+    #。。。。。。。。。。。
+    l.login_off(driver)
+split()可以将一个字符串以某一个字符分割为左右两部分，默认以空格分割；分割出来的两部分列表的形式存放，通过字符串索引就能获取左右两边的字符。
+关键字驱动测试
+通过关键字的改变引起测试结果的改变叫关键字驱动测试。
+
+selenium IDE也是一种传统的关键字驱动的自动化工具，Robot Framework 是一个功能更强大的关键字驱动测试框架。
